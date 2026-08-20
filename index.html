@@ -220,16 +220,6 @@
     font-size:.9em;
   }
 
-  .ticker{
-    margin-top:20px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10px;
-    letter-spacing:.2em;
-    color:#565c7c;
-    text-align:center;
-    text-transform:uppercase;
-  }
-
   @media (max-width:420px){
     .pair-row{ flex-wrap:wrap; }
     .swap-btn{ order:3; margin:0 auto; }
@@ -254,28 +244,6 @@
           <select id="from">
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
-            <option value="COP">COP</option>
-            <option value="MXN">MXN</option>
-            <option value="GBP">GBP</option>
-            <option value="JPY">JPY</option>
-            <option value="BRL">BRL</option>
-            <option value="ARS">ARS</option>
-            <option value="CLP">CLP</option>
-            <option value="PEN">PEN</option>
-            <option value="CAD">CAD</option>
-            <option value="CHF">CHF</option>
-            <option value="CNY">CNY</option>
-            <option value="AUD">AUD</option>
-          </select>
-        </div>
-
-        <button class="swap-btn" onclick="swapCurrencies()" title="Invertir monedas">⇄</button>
-
-        <div class="flap">
-          <span class="field-label">Hacia</span>
-          <select id="to">
-            <option value="EUR">EUR</option>
-            <option value="USD">USD</option>
             <option value="COP">COP</option>
             <option value="MXN">MXN</option>
             <option value="GBP">GBP</option>
