@@ -3,50 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor de Divisas PWA</title>
+  <title>Conversor Futurista</title>
   <link rel="manifest" href="manifest.json">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f9;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #0f0f1a, #000);
+      color: #00ffe0;
       margin: 0;
-      padding: 20px;
+      padding: 40px;
       text-align: center;
     }
     h1 {
-      color: #333;
+      font-size: 2.5em;
+      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
+      margin-bottom: 30px;
     }
     .converter {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      background: rgba(20, 20, 40, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffe0;
       display: inline-block;
+      animation: glow 3s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px #00ffe0; }
+      to { box-shadow: 0 0 40px #ff00ff; }
     }
     input, select, button {
       margin: 10px;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+    }
+    input, select {
+      background: #111;
+      color: #00ffe0;
+      box-shadow: inset 0 0 10px #00ffe0;
     }
     button {
-      background: #0078d7;
+      background: linear-gradient(90deg, #00ffe0, #ff00ff);
       color: #fff;
-      border: none;
-      border-radius: 4px;
+      font-weight: bold;
       cursor: pointer;
+      transition: transform 0.2s ease;
     }
     button:hover {
-      background: #005a9e;
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #ff00ff;
     }
     #result {
       margin-top: 20px;
-      font-weight: bold;
-      color: #0078d7;
+      font-size: 1.2em;
+      text-shadow: 0 0 10px #ff00ff;
     }
   </style>
 </head>
 <body>
-  <h1>Conversor de Divisas</h1>
+  <h1>💱 Conversor Futurista</h1>
   <div class="converter">
     <input type="number" id="amount" placeholder="Cantidad" value="1">
     <select id="from">
@@ -61,7 +78,7 @@
       <option value="COP">COP</option>
       <option value="MXN">MXN</option>
     </select>
-    <button onclick="convert()">Convertir</button>
+    <button onclick="convert()">🚀 Convertir</button>
     <div id="result"></div>
   </div>
 
@@ -78,11 +95,11 @@
         const result = (amount * rate).toFixed(2);
         document.getElementById('result').innerText = `${amount} ${from} = ${result} ${to}`;
       } catch (error) {
-        document.getElementById('result').innerText = "Error al obtener tasas de cambio.";
+        document.getElementById('result').innerText = "⚠️ Error al obtener tasas de cambio.";
       }
     }
 
-    // Service Worker básico para PWA
+    // Service Worker básico
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js')
         .then(() => console.log("Service Worker registrado"))
