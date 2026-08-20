@@ -309,15 +309,20 @@
 
     renderFlaps('· · ·');
 
-    try{
+    try {
       const res = await fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`);
+      if (!res.ok) throw new Error("Error en la API"); // ← valida respuesta HTTP
+
       const data = await res.json();
+      if (!data.rates || !data.rates[to]) throw new Error("Moneda no soportada"); // ← valida estructura de datos
+
       const rate = data.rates[to];
       const result = (amount * rate).toFixed(2);
       renderFlaps(`${result} ${to}`);
-    }catch(error){
-      renderError('⚠ error al obtener tasas de cambio');
+    } catch (error) {
+      renderError('⚠️ Error al obtener tasas de cambio');
     }
+
   }
 
   if ('serviceWorker' in navigator) {
