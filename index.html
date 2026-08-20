@@ -310,7 +310,7 @@
     renderFlaps('· · ·');
 
     try {
-      const res = await fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`);
+      const res = await fetch(`https://api.exchangeratesapi.io/v1/latest?access_key=c175124f0e23566f24701c16669e8b3d&base=${from}&symbols=${to}`);
       if (!res.ok) throw new Error("Error en la API"); // ← valida respuesta HTTP
 
       const data = await res.json();
