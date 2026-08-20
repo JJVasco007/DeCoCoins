@@ -12,9 +12,37 @@
 
   <title>Tablero de Cambio</title>
 
-  <link rel="manifest" href="manifest.json">
 
-  <!-- Fuentes -->
+  <!-- =====================================================
+       ICONO DE LA PÁGINA
+  ====================================================== -->
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="icon.png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="icon.png"
+  >
+
+
+  <!-- =====================================================
+       MANIFEST PWA
+  ====================================================== -->
+
+  <link
+    rel="manifest"
+    href="manifest.json"
+  >
+
+
+  <!-- =====================================================
+       FUENTES
+  ====================================================== -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link
@@ -22,35 +50,38 @@
     rel="stylesheet"
   >
 
+
+  <!-- =====================================================
+       ESTILOS
+  ====================================================== -->
+
   <style>
 
-    /* =====================================================
-       VARIABLES
-    ===================================================== */
-
     :root {
+
       --ink: #11162a;
+
       --ink-2: #191f38;
 
       --brass: #c9a227;
+
       --brass-bright: #e8c34f;
 
       --parchment: #f3ecdc;
 
       --teal: #3fae72;
+
       --rust: #c0453a;
 
-      --line: rgba(243, 236, 220, 0.14);
+      --line:
+        rgba(243, 236, 220, 0.14);
     }
 
-
-    /* =====================================================
-       CONFIGURACIÓN GENERAL
-    ===================================================== */
 
     * {
       box-sizing: border-box;
     }
+
 
     body {
 
@@ -59,6 +90,7 @@
       min-height: 100vh;
 
       background:
+
         radial-gradient(
           circle at 20% -10%,
           #1c2447 0%,
@@ -89,11 +121,13 @@
 
     /* =====================================================
        ENCABEZADO
-    ===================================================== */
+    ====================================================== */
 
     .eyebrow {
 
-      font-family: 'IBM Plex Mono', monospace;
+      font-family:
+        'IBM Plex Mono',
+        monospace;
 
       font-size: 11px;
 
@@ -113,7 +147,9 @@
 
     h1 {
 
-      font-family: 'Playfair Display', serif;
+      font-family:
+        'Playfair Display',
+        serif;
 
       font-style: italic;
 
@@ -131,7 +167,7 @@
 
     /* =====================================================
        TABLERO
-    ===================================================== */
+    ====================================================== */
 
     .board {
 
@@ -146,15 +182,20 @@
           #10142a
         );
 
-      border: 1px solid var(--line);
+      border:
+        1px solid var(--line);
 
       border-radius: 6px;
 
       padding: 28px 26px 22px;
 
       box-shadow:
-        0 30px 60px -20px rgba(0, 0, 0, .6),
-        inset 0 1px 0 rgba(255, 255, 255, .03);
+
+        0 30px 60px -20px
+        rgba(0, 0, 0, .6),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, .03);
 
       position: relative;
     }
@@ -169,7 +210,8 @@
       inset: 10px;
 
       border:
-        1px solid rgba(201, 162, 39, .18);
+        1px solid
+        rgba(201, 162, 39, .18);
 
       border-radius: 3px;
 
@@ -179,11 +221,13 @@
 
     /* =====================================================
        ETIQUETAS
-    ===================================================== */
+    ====================================================== */
 
     .field-label {
 
-      font-family: 'IBM Plex Mono', monospace;
+      font-family:
+        'IBM Plex Mono',
+        monospace;
 
       font-size: 10px;
 
@@ -201,7 +245,7 @@
 
     /* =====================================================
        CANTIDAD
-    ===================================================== */
+    ====================================================== */
 
     .amount-row {
 
@@ -215,13 +259,16 @@
 
       background: #0b0e1e;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid var(--line);
 
       border-radius: 4px;
 
       color: var(--brass-bright);
 
-      font-family: 'IBM Plex Mono', monospace;
+      font-family:
+        'IBM Plex Mono',
+        monospace;
 
       font-size: 1.6em;
 
@@ -242,12 +289,10 @@
 
 
     /* =====================================================
-       FILA DE DIVISAS
+       DIVISAS
        
-       AQUÍ ESTÁ LA CORRECCIÓN PRINCIPAL:
-       
-       DIVISA DESDE | BOTÓN ⇄ | DIVISA HACIA
-    ===================================================== */
+       DESDE | ⇄ | HACIA
+    ====================================================== */
 
     .pair-row {
 
@@ -273,8 +318,8 @@
 
 
     /* =====================================================
-       SELECTORES
-    ===================================================== */
+       SELECT
+    ====================================================== */
 
     select {
 
@@ -283,17 +328,23 @@
       appearance: none;
 
       background:
+
         #0b0e1e
+
         url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0l5 6 5-6z" fill="%23c9a227"/></svg>')
+
         right 14px center no-repeat;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid var(--line);
 
       border-radius: 4px;
 
       color: var(--parchment);
 
-      font-family: 'IBM Plex Mono', monospace;
+      font-family:
+        'IBM Plex Mono',
+        monospace;
 
       font-size: 1.05em;
 
@@ -301,9 +352,12 @@
 
       letter-spacing: .05em;
 
-      padding: 12px 30px 12px 14px;
+      padding:
+        12px 30px 12px 14px;
 
       height: 46px;
+
+      cursor: pointer;
     }
 
 
@@ -324,7 +378,7 @@
 
     /* =====================================================
        BOTÓN INTERCAMBIAR
-    ===================================================== */
+    ====================================================== */
 
     .swap-btn {
 
@@ -332,7 +386,8 @@
 
       height: 46px;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid var(--line);
 
       background: #0b0e1e;
 
@@ -351,8 +406,11 @@
       justify-content: center;
 
       transition:
+
         transform .25s ease,
+
         border-color .2s ease,
+
         color .2s ease;
     }
 
@@ -375,13 +433,14 @@
 
     /* =====================================================
        BOTÓN CONVERTIR
-    ===================================================== */
+    ====================================================== */
 
     .convert-btn {
 
       width: 100%;
 
       background:
+
         linear-gradient(
           180deg,
           var(--brass-bright),
@@ -394,7 +453,9 @@
 
       border-radius: 4px;
 
-      font-family: 'Inter', sans-serif;
+      font-family:
+        'Inter',
+        sans-serif;
 
       font-weight: 600;
 
@@ -409,11 +470,14 @@
       cursor: pointer;
 
       box-shadow:
+
         0 8px 18px -8px
         rgba(201, 162, 39, .6);
 
       transition:
+
         filter .15s ease,
+
         transform .15s ease;
     }
 
@@ -444,7 +508,7 @@
 
     /* =====================================================
        RESULTADO
-    ===================================================== */
+    ====================================================== */
 
     .result-wrap {
 
@@ -462,7 +526,9 @@
 
     .result-label {
 
-      font-family: 'IBM Plex Mono', monospace;
+      font-family:
+        'IBM Plex Mono',
+        monospace;
 
       font-size: 10px;
 
@@ -539,7 +605,7 @@
 
     /* =====================================================
        ANIMACIÓN
-    ===================================================== */
+    ====================================================== */
 
     @keyframes flip {
 
@@ -569,7 +635,7 @@
 
     /* =====================================================
        ERROR
-    ===================================================== */
+    ====================================================== */
 
     .error-text {
 
@@ -587,7 +653,7 @@
 
     /* =====================================================
        TICKER
-    ===================================================== */
+    ====================================================== */
 
     .ticker {
 
@@ -613,7 +679,7 @@
 
     /* =====================================================
        RESPONSIVE
-    ===================================================== */
+    ====================================================== */
 
     @media (max-width: 600px) {
 
@@ -683,15 +749,20 @@
 
 <body>
 
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+  ====================================================== -->
+
   <div>
 
-    <!-- =================================================
-         ENCABEZADO
-    ================================================== -->
+
+    <!-- ENCABEZADO -->
 
     <div class="eyebrow">
       Casa de cambio · tasas actualizadas
     </div>
+
 
     <h1>
       Tablero de Cambio
@@ -713,6 +784,7 @@
           Cantidad
         </span>
 
+
         <input
           type="number"
           id="amount"
@@ -727,21 +799,19 @@
 
       <!-- =================================================
            DIVISAS
-
-           DESDE       ⇄       HACIA
-           USD                  EUR
       ================================================== -->
 
       <div class="pair-row">
 
 
-        <!-- DIVISA DESDE -->
+        <!-- DESDE -->
 
         <div class="flap">
 
           <span class="field-label">
             Desde
           </span>
+
 
           <select id="from">
 
@@ -806,7 +876,7 @@
         </div>
 
 
-        <!-- BOTÓN INTERCAMBIAR -->
+        <!-- BOTÓN ⇄ -->
 
         <button
           class="swap-btn"
@@ -819,13 +889,14 @@
         </button>
 
 
-        <!-- DIVISA HACIA -->
+        <!-- HACIA -->
 
         <div class="flap">
 
           <span class="field-label">
             Hacia
           </span>
+
 
           <select id="to">
 
@@ -893,7 +964,7 @@
 
 
       <!-- =================================================
-           BOTÓN CONVERTIR
+           CONVERTIR
       ================================================== -->
 
       <button
@@ -916,6 +987,7 @@
           Resultado
         </div>
 
+
         <div
           class="flap-display"
           id="result"
@@ -927,7 +999,7 @@
 
 
     <!-- =================================================
-         TICKER
+         MONEDAS DISPONIBLES
     ================================================== -->
 
     <div class="ticker">
@@ -941,19 +1013,20 @@
 
   <!-- =====================================================
        JAVASCRIPT
-  ===================================================== -->
+  ====================================================== -->
 
   <script>
 
 
     /* =====================================================
-       MOSTRAR RESULTADO CON ANIMACIÓN
-    ===================================================== */
+       MOSTRAR RESULTADO
+    ====================================================== */
 
     function renderFlaps(text) {
 
       const container =
         document.getElementById('result');
+
 
       container.innerHTML = '';
 
@@ -973,7 +1046,8 @@
           (isDigitish ? '' : ' unit');
 
 
-        tile.textContent = ch;
+        tile.textContent =
+          ch;
 
 
         tile.style.animationDelay =
@@ -989,12 +1063,13 @@
 
     /* =====================================================
        MOSTRAR ERROR
-    ===================================================== */
+    ====================================================== */
 
     function renderError(message) {
 
       const container =
         document.getElementById('result');
+
 
       container.innerHTML = '';
 
@@ -1018,12 +1093,13 @@
 
     /* =====================================================
        INTERCAMBIAR MONEDAS
-    ===================================================== */
+    ====================================================== */
 
     function swapCurrencies() {
 
       const from =
         document.getElementById('from');
+
 
       const to =
         document.getElementById('to');
@@ -1042,9 +1118,7 @@
 
 
       /*
-       * Si ya había un resultado,
-       * lo limpiamos porque ahora
-       * cambió la dirección.
+       * Limpiar resultado anterior
        */
 
       document.getElementById(
@@ -1055,8 +1129,8 @@
 
 
     /* =====================================================
-       CONVERTIR
-    ===================================================== */
+       CONVERTIR MONEDA
+    ====================================================== */
 
     async function convert() {
 
@@ -1108,6 +1182,7 @@
             'es-CO',
             {
               minimumFractionDigits: 2,
+
               maximumFractionDigits: 2
             }
           );
@@ -1123,7 +1198,7 @@
 
 
       /* -----------------------------------------------
-         ESTADO DE CARGA
+         CARGANDO
       ------------------------------------------------ */
 
       button.disabled = true;
@@ -1139,13 +1214,9 @@
 
 
         /* ---------------------------------------------
-           CONSULTAR API
+           API FRANKFURTER
 
-           Frankfurter no necesita API KEY.
-
-           Ejemplo:
-
-           https://api.frankfurter.dev/v2/rate/USD/EUR
+           No necesita API KEY.
         --------------------------------------------- */
 
         const url =
@@ -1202,7 +1273,7 @@
 
 
         /* ---------------------------------------------
-           FORMATEAR RESULTADO
+           FORMATEAR
         --------------------------------------------- */
 
         const formatted =
@@ -1217,7 +1288,7 @@
 
 
         /* ---------------------------------------------
-           MOSTRAR
+           MOSTRAR RESULTADO
         --------------------------------------------- */
 
         renderFlaps(
@@ -1226,7 +1297,6 @@
 
 
       } catch (error) {
-
 
         console.error(
           'Error de conversión:',
@@ -1240,11 +1310,6 @@
 
       } finally {
 
-
-        /* ---------------------------------------------
-           RESTAURAR BOTÓN
-        --------------------------------------------- */
-
         button.disabled = false;
 
         button.textContent =
@@ -1257,7 +1322,7 @@
 
     /* =====================================================
        ENTER PARA CONVERTIR
-    ===================================================== */
+    ====================================================== */
 
     document
       .getElementById('amount')
@@ -1265,7 +1330,9 @@
         'keydown',
         function(event) {
 
-          if (event.key === 'Enter') {
+          if (
+            event.key === 'Enter'
+          ) {
 
             convert();
 
@@ -1277,7 +1344,7 @@
 
     /* =====================================================
        SERVICE WORKER
-    ===================================================== */
+    ====================================================== */
 
     if (
       'serviceWorker' in navigator
@@ -1304,7 +1371,6 @@
         });
 
     }
-
 
   </script>
 
