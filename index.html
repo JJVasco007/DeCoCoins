@@ -310,18 +310,22 @@
     renderFlaps('· · ·');
 
     try {
-      const res = await fetch(`https://api.exchangeratesapi.io/v1/latest?access_key=c175124f0e23566f24701c16669e8b3d&base=${from}&symbols=${to}`);
-      if (!res.ok) throw new Error("Error en la API"); // ← valida respuesta HTTP
+  const res = await fetch(`https://api.exchangeratesapi.io/v1/latest?access_key=c175124f0e23566f24701c16669e8b3d&base=${from}&symbols=${to}`);
+  if (!res.ok) throw new Error("Error en la API");
 
-      const data = await res.json();
-      if (!data.rates || !data.rates[to]) throw new Error("Moneda no soportada"); // ← valida estructura de datos
+  const data = await res.json();
 
-      const rate = data.rates[to];
-      const result = (amount * rate).toFixed(2);
-      renderFlaps(`${result} ${to}`);
-    } catch (error) {
-      renderError('⚠️ Error al obtener tasas de cambio');
-    }
+  // OJO: la API nueva devuelve rates dentro de data.rates
+  if (!data.rates || !data.rates[to]) throw new Error("Moneda no soportada");
+
+  const rate = data.rates[to];
+  const result = (amount * rate).toFixed(2);
+
+  renderFlaps(`${result} ${to}`);
+} catch (error) {
+  renderError('⚠️ Error al obtener tasas de cambio');
+}
+
 
   }
 
