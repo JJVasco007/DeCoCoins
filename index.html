@@ -239,26 +239,49 @@
       </div>
 
       <div class="pair-row">
-        <div class="flap">
-          <span class="field-label">Desde</span>
-          <select id="from">
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="COP">COP</option>
-            <option value="MXN">MXN</option>
-            <option value="GBP">GBP</option>
-            <option value="JPY">JPY</option>
-            <option value="BRL">BRL</option>
-            <option value="ARS">ARS</option>
-            <option value="CLP">CLP</option>
-            <option value="PEN">PEN</option>
-            <option value="CAD">CAD</option>
-            <option value="CHF">CHF</option>
-            <option value="CNY">CNY</option>
-            <option value="AUD">AUD</option>
-          </select>
-        </div>
-      </div>
+  <div class="flap">
+    <span class="field-label">Desde</span>
+    <select id="from">
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="COP">COP</option>
+      <option value="MXN">MXN</option>
+      <option value="GBP">GBP</option>
+      <option value="JPY">JPY</option>
+      <option value="BRL">BRL</option>
+      <option value="ARS">ARS</option>
+      <option value="CLP">CLP</option>
+      <option value="PEN">PEN</option>
+      <option value="CAD">CAD</option>
+      <option value="CHF">CHF</option>
+      <option value="CNY">CNY</option>
+      <option value="AUD">AUD</option>
+    </select>
+  </div>
+
+  <button class="swap-btn" onclick="swapCurrencies()" title="Invertir monedas">⇄</button>
+
+  <div class="flap">
+    <span class="field-label">Hacia</span>
+    <select id="to">
+      <option value="EUR">EUR</option>
+      <option value="USD">USD</option>
+      <option value="COP">COP</option>
+      <option value="MXN">MXN</option>
+      <option value="GBP">GBP</option>
+      <option value="JPY">JPY</option>
+      <option value="BRL">BRL</option>
+      <option value="ARS">ARS</option>
+      <option value="CLP">CLP</option>
+      <option value="PEN">PEN</option>
+      <option value="CAD">CAD</option>
+      <option value="CHF">CHF</option>
+      <option value="CNY">CNY</option>
+      <option value="AUD">AUD</option>
+    </select>
+  </div>
+</div>
+
 
       <button class="convert-btn" onclick="convert()">Convertir</button>
 
