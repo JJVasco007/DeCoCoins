@@ -1,110 +1,362 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor Futurista</title>
-  <link rel="manifest" href="manifest.json">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #0f0f1a, #000);
-      color: #00ffe0;
-      margin: 0;
-      padding: 40px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5em;
-      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
-      margin-bottom: 30px;
-    }
-    .converter {
-      background: rgba(20, 20, 40, 0.9);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #00ffe0;
-      display: inline-block;
-      animation: glow 3s infinite alternate;
-    }
-    @keyframes glow {
-      from { box-shadow: 0 0 20px #00ffe0; }
-      to { box-shadow: 0 0 40px #ff00ff; }
-    }
-    input, select, button {
-      margin: 10px;
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      outline: none;
-    }
-    input, select {
-      background: #111;
-      color: #00ffe0;
-      box-shadow: inset 0 0 10px #00ffe0;
-    }
-    button {
-      background: linear-gradient(90deg, #00ffe0, #ff00ff);
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 15px #ff00ff;
-    }
-    #result {
-      margin-top: 20px;
-      font-size: 1.2em;
-      text-shadow: 0 0 10px #ff00ff;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablero de Cambio</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#11162a;
+    --ink-2:#191f38;
+    --brass:#c9a227;
+    --brass-bright:#e8c34f;
+    --parchment:#f3ecdc;
+    --teal:#3fae72;
+    --rust:#c0453a;
+    --line:rgba(243,236,220,0.14);
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 20% -10%, #1c2447 0%, transparent 55%),
+      radial-gradient(circle at 85% 110%, #1a2340 0%, transparent 50%),
+      var(--ink);
+    color:var(--parchment);
+    font-family:'Inter', sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 18px;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    text-align:center;
+    margin-bottom:10px;
+    opacity:.85;
+  }
+
+  h1{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:2.1em;
+    text-align:center;
+    margin:0 0 28px;
+    color:var(--parchment);
+  }
+
+  .board{
+    width:100%;
+    max-width:460px;
+    background:linear-gradient(180deg, var(--ink-2), #10142a);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px 26px 22px;
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,.6),
+      inset 0 1px 0 rgba(255,255,255,.03);
+    position:relative;
+  }
+
+  .board::before{
+    content:"";
+    position:absolute;
+    inset:10px;
+    border:1px solid rgba(201,162,39,.18);
+    border-radius:3px;
+    pointer-events:none;
+  }
+
+  .field-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#8b90ab;
+    margin-bottom:6px;
+    display:block;
+  }
+
+  .amount-row{ margin-bottom:18px; }
+
+  input#amount{
+    width:100%;
+    background:#0b0e1e;
+    border:1px solid var(--line);
+    border-radius:4px;
+    color:var(--brass-bright);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:1.6em;
+    font-weight:500;
+    padding:12px 14px;
+    letter-spacing:.03em;
+  }
+  input#amount:focus{ outline:none; border-color:var(--brass); }
+
+  .pair-row{
+    display:flex;
+    align-items:flex-end;
+    gap:10px;
+    margin-bottom:22px;
+  }
+
+  .flap{ flex:1; }
+
+  select{
+    width:100%;
+    appearance:none;
+    background:#0b0e1e url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0l5 6 5-6z" fill="%23c9a227"/></svg>') right 14px center no-repeat;
+    border:1px solid var(--line);
+    border-radius:4px;
+    color:var(--parchment);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:1.1em;
+    font-weight:600;
+    letter-spacing:.08em;
+    padding:12px 30px 12px 14px;
+  }
+  select:focus{ outline:none; border-color:var(--brass); }
+
+  .swap-btn{
+    flex:0 0 auto;
+    width:38px;
+    height:44px;
+    border:1px solid var(--line);
+    background:#0b0e1e;
+    color:var(--brass);
+    border-radius:4px;
+    font-size:16px;
+    cursor:pointer;
+    transition:transform .25s ease, border-color .2s ease;
+  }
+  .swap-btn:hover{ border-color:var(--brass); transform:rotate(180deg); }
+
+  .convert-btn{
+    width:100%;
+    background:linear-gradient(180deg, var(--brass-bright), var(--brass));
+    color:#1a1406;
+    border:none;
+    border-radius:4px;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:.92em;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    padding:14px;
+    cursor:pointer;
+    box-shadow:0 8px 18px -8px rgba(201,162,39,.6);
+    transition:filter .15s ease, transform .15s ease;
+  }
+  .convert-btn:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+  .convert-btn:active{ transform:translateY(0); }
+
+  .result-wrap{
+    margin-top:24px;
+    padding-top:20px;
+    border-top:1px dashed rgba(201,162,39,.3);
+    min-height:70px;
+  }
+
+  .result-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#8b90ab;
+    margin-bottom:10px;
+  }
+
+  .flap-display{
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px;
+    perspective:400px;
+  }
+
+  .flap-tile{
+    background:#0b0e1e;
+    border:1px solid rgba(201,162,39,.35);
+    border-radius:3px;
+    color:var(--teal);
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:1.5em;
+    min-width:28px;
+    text-align:center;
+    padding:6px 4px;
+    animation:flip .45s ease;
+    transform-origin:center;
+  }
+  .flap-tile.unit{
+    color:var(--brass-bright);
+    font-size:1.1em;
+    align-self:center;
+    border:none;
+    background:none;
+    padding-left:8px;
+  }
+
+  @keyframes flip{
+    0%{ transform:rotateX(90deg); opacity:0; }
+    60%{ transform:rotateX(-10deg); opacity:1; }
+    100%{ transform:rotateX(0deg); }
+  }
+
+  .error-text{
+    color:var(--rust);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.9em;
+  }
+
+  .ticker{
+    margin-top:20px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:.2em;
+    color:#565c7c;
+    text-align:center;
+    text-transform:uppercase;
+  }
+
+  @media (max-width:420px){
+    .pair-row{ flex-wrap:wrap; }
+    .swap-btn{ order:3; margin:0 auto; }
+  }
+</style>
 </head>
 <body>
-  <h1>💱 Conversor Futurista</h1>
-  <div class="converter">
-    <input type="number" id="amount" placeholder="Cantidad" value="1">
-    <select id="from">
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
-      <option value="COP">COP</option>
-      <option value="MXN">MXN</option>
-    </select>
-    <select id="to">
-      <option value="EUR">EUR</option>
-      <option value="USD">USD</option>
-      <option value="COP">COP</option>
-      <option value="MXN">MXN</option>
-    </select>
-    <button onclick="convert()">🚀 Convertir</button>
-    <div id="result"></div>
+
+  <div>
+    <div class="eyebrow">Casa de cambio · en vivo</div>
+    <h1>Tablero de Cambio</h1>
+
+    <div class="board">
+      <div class="amount-row">
+        <span class="field-label">Cantidad</span>
+        <input type="number" id="amount" value="1" min="0">
+      </div>
+
+      <div class="pair-row">
+        <div class="flap">
+          <span class="field-label">Desde</span>
+          <select id="from">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="COP">COP</option>
+            <option value="MXN">MXN</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="BRL">BRL</option>
+            <option value="ARS">ARS</option>
+            <option value="CLP">CLP</option>
+            <option value="PEN">PEN</option>
+            <option value="CAD">CAD</option>
+            <option value="CHF">CHF</option>
+            <option value="CNY">CNY</option>
+            <option value="AUD">AUD</option>
+          </select>
+        </div>
+
+        <button class="swap-btn" onclick="swapCurrencies()" title="Invertir monedas">⇄</button>
+
+        <div class="flap">
+          <span class="field-label">Hacia</span>
+          <select id="to">
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+            <option value="COP">COP</option>
+            <option value="MXN">MXN</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="BRL">BRL</option>
+            <option value="ARS">ARS</option>
+            <option value="CLP">CLP</option>
+            <option value="PEN">PEN</option>
+            <option value="CAD">CAD</option>
+            <option value="CHF">CHF</option>
+            <option value="CNY">CNY</option>
+            <option value="AUD">AUD</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="convert-btn" onclick="convert()">Convertir</button>
+
+      <div class="result-wrap">
+        <div class="result-label">Resultado</div>
+        <div class="flap-display" id="result"></div>
+      </div>
+    </div>
+
+    <div class="ticker">USD · EUR · COP · MXN · GBP · JPY · BRL · ARS · CLP · PEN · CAD · CHF · CNY · AUD</div>
   </div>
 
-  <script>
-    async function convert() {
-      const amount = document.getElementById('amount').value;
-      const from = document.getElementById('from').value;
-      const to = document.getElementById('to').value;
+<script>
+  function renderFlaps(text){
+    const container = document.getElementById('result');
+    container.innerHTML = '';
+    text.split('').forEach((ch, i) => {
+      const tile = document.createElement('div');
+      const isDigitish = /[0-9.,]/.test(ch);
+      tile.className = 'flap-tile' + (isDigitish ? '' : ' unit');
+      tile.textContent = ch;
+      tile.style.animationDelay = (i * 25) + 'ms';
+      container.appendChild(tile);
+    });
+  }
 
-      try {
-        const res = await fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`);
-        const data = await res.json();
-        const rate = data.rates[to];
-        const result = (amount * rate).toFixed(2);
-        document.getElementById('result').innerText = `${amount} ${from} = ${result} ${to}`;
-      } catch (error) {
-        document.getElementById('result').innerText = "⚠️ Error al obtener tasas de cambio.";
-      }
-    }
+  function renderError(message){
+    const container = document.getElementById('result');
+    container.innerHTML = '';
+    const span = document.createElement('div');
+    span.className = 'error-text';
+    span.textContent = message;
+    container.appendChild(span);
+  }
 
-    // Service Worker básico
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log("Service Worker registrado"))
-        .catch(err => console.error("Error SW:", err));
+  function swapCurrencies(){
+    const from = document.getElementById('from');
+    const to = document.getElementById('to');
+    const tmp = from.value;
+    from.value = to.value;
+    to.value = tmp;
+  }
+
+  async function convert(){
+    const amount = document.getElementById('amount').value;
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+
+    renderFlaps('· · ·');
+
+    try{
+      const res = await fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`);
+      const data = await res.json();
+      const rate = data.rates[to];
+      const result = (amount * rate).toFixed(2);
+      renderFlaps(`${result} ${to}`);
+    }catch(error){
+      renderError('⚠ error al obtener tasas de cambio');
     }
-  </script>
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('Service Worker registrado'))
+      .catch(err => console.error('Error SW:', err));
+  }
+</script>
 </body>
 </html>
